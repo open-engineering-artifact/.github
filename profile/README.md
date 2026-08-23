@@ -2,7 +2,7 @@
 
 A standard way to describe, build, verify, publish, and consume engineering artifacts.
 
-![Open Engineering Artifact hero-banner.png](../assets/.gitkeep
+![Open Engineering Artifact hero-banner.png](../assets/hero-banner.png)
 
 Open Engineering Artifact defines what an Artifact is within the Open Engineering ecosystem.
 
