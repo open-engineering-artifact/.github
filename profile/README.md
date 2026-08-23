@@ -1,4 +1,4 @@
-Open Engineering Artifact
+# Open Engineering Artifact
 
 A standard way to describe, build, verify, publish, and consume engineering artifacts.
 
