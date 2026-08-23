@@ -12,7 +12,7 @@ Artifacts turn engineering activity into something that can be stored, inspected
 
 ⸻
 
-Why Artifact?
+## Why Artifact?
 
 Engineering systems continuously produce useful outputs:
 
@@ -35,7 +35,7 @@ Engineering systems continuously produce useful outputs:
 Without a common abstraction, every system invents its own way of describing and transporting these outputs.
 
 Open Engineering Artifact provides that common abstraction.
-
+```
 Engineering activity
         │
         ▼
@@ -55,7 +55,7 @@ Engineering activity
            ▼
  store • inspect • verify
  publish • compose • reuse
-
+```
 An Artifact is therefore more than a file.
 
 A file may be its payload.
@@ -64,10 +64,10 @@ The Artifact is the engineering object around that payload.
 
 ⸻
 
-Definition and Implementation
+## Definition and Implementation
 
 Open Engineering deliberately separates the definition of an engineering concept from its implementation.
-
+```
 open-engineering-artifacts
           │
           │ defines
@@ -77,7 +77,7 @@ open-engineering-artifacts
           │ implemented by
           ▼
  open-engineering-artifact
-
+```
 Open Engineering Artifacts
 
 open-engineering-artifacts defines the Artifact domain:
@@ -98,10 +98,10 @@ This organization is concerned with making Artifacts operational.
 
 ⸻
 
-Artifact Model
+## Artifact Model
 
 At its simplest:
-
+```
 apiVersion: open-engineering.io/v1alpha1
 kind: Artifact
 metadata:
@@ -115,34 +115,34 @@ spec:
     producer: example-workflow
   relationships: []
   integrity: {}
-
+```
 The exact schemas may evolve, but the architectural principle remains stable:
 
 Content becomes an engineering Artifact when it gains identity, context, provenance, and lifecycle.
 
 ⸻
 
-Identity
+## Identity
 
 Every Artifact should be independently addressable.
 
 Open Engineering identifiers provide stable identities that allow an Artifact to be referenced without depending solely on filenames, repository paths, URLs, or storage implementations.
-
+```
 Artifact
    │
    ├── identifier
    ├── human-readable name
    ├── version
    └── type
-
+```
 This allows other Open Engineering objects to refer to an Artifact explicitly.
 
 ⸻
 
-Content
+## Content
 
 Artifact content can take many forms.
-
+```
 Artifact
 ├── Markdown
 ├── JSON / YAML
@@ -157,31 +157,31 @@ Artifact
 ├── report
 ├── evidence
 └── arbitrary binary content
-
+```
 The Artifact abstraction does not replace these formats.
 
 It provides a consistent engineering envelope around them.
 
 ⸻
 
-Metadata
+## Metadata
 
 Artifacts carry enough metadata to explain what they are and how they should be handled.
 
 Typical metadata includes:
-
+```
 metadata:
   name: architecture-report
   version: 1.0.0
   labels:
     domain: architecture
     project: example
-
+```
 Metadata enables discovery, automation, policy, composition, and reporting.
 
 ⸻
 
-Provenance
+## Provenance
 
 An Artifact should be able to answer:
 
@@ -199,7 +199,7 @@ Provenance may identify:
 * the timestamp and version
 
 Conceptually:
-
+```
 Inputs
    │
    ▼
@@ -209,17 +209,17 @@ Execution
 Artifact
    │
    └── provenance
-
+```
 This makes generated engineering outputs explainable and traceable.
 
 ⸻
 
-Relationships
+## Relationships
 
 Artifacts rarely exist in isolation.
 
 An Artifact can relate to other Artifacts and engineering objects.
-
+```
 Architecture
      │
      ├── described-by ──► Documentation
@@ -229,12 +229,12 @@ Architecture
      ├── evidenced-by ──► Test Result
      │
      └── rendered-as ───► Diagram
-
+```
 Relationships turn collections of files into an engineering knowledge graph.
 
 ⸻
 
-Integrity
+## Integrity
 
 Artifacts should be verifiable.
 
@@ -248,19 +248,19 @@ Integrity information can include:
 * validation status
 
 For example:
-
+```
 integrity:
   algorithm: sha256
   digest: "..."
-
+```
 This enables systems to determine whether an Artifact is the same object that was originally produced.
 
 ⸻
 
-Lifecycle
+## Lifecycle
 
 Artifacts move through an engineering lifecycle.
-
+```
 create
   │
   ▼
@@ -277,17 +277,17 @@ compose
   │
   ▼
 supersede / archive
-
+```
 Different Artifact types may introduce additional lifecycle states while retaining this common foundation.
 
 ⸻
 
-Artifacts and Evidence
+## Artifacts and Evidence
 
 Artifacts are especially important to Open Engineering’s Evidence primitive.
 
 An engineering claim can point to the Artifact that supports it.
-
+```
 Claim
   │
   └── supported by
@@ -299,15 +299,15 @@ Claim
                   │
                   ▼
                Artifact
-
+```
 This creates a foundation for auditable engineering systems where conclusions can be traced back to their supporting material.
 
 ⸻
 
-Artifacts and Picos
+## Artifacts and Picos
 
 A Pico can both consume and produce Artifacts.
-
+```
         Artifact
            │
            ▼
@@ -317,28 +317,28 @@ A Pico can both consume and produce Artifacts.
            │
            ▼
         Artifact
-
+```
 For example, a Pico might consume:
-
+```
 requirements.md
 architecture.yaml
 source-code.tar
-
+```
 and produce:
-
+```
 analysis.json
 report.md
 diagram.svg
 evidence.json
-
+```
 Because each result is an Artifact, downstream Picos and workflows can consume those outputs using the same abstraction.
 
 ⸻
 
-Artifacts and Workflows
+## Artifacts and Workflows
 
 Artifacts provide durable boundaries between workflow stages.
-
+```
 Investigation
      │
      ▼
@@ -352,23 +352,23 @@ Execution
      │
      ▼
 Reporting
-
+```
 This is preferable to hidden state passing between tools because intermediate engineering outputs remain inspectable and reusable.
 
 ⸻
 
-Composition
+## Composition
 
 Artifacts are designed for composition.
-
+```
 Artifact A ─┐
 Artifact B ─┼──► Composer ──► Artifact D
 Artifact C ─┘
-
+```
 A Composer can combine multiple Artifacts into a new Artifact while retaining their identities and provenance.
 
 Examples include:
-
+```
 ADRs + architecture model
         ↓
 architecture report
@@ -381,15 +381,15 @@ investigation report
 images + audio + screenplay
         ↓
 motion-picture project
-
+```
 Composition is therefore a first-class capability rather than an accidental consequence of copying files.
 
 ⸻
 
-Storage Is Not the Model
+## Storage Is Not the Model
 
 Artifacts may ultimately live in many systems:
-
+```
 Git
 OCI registry
 object storage
@@ -398,26 +398,26 @@ database
 filesystem
 artifact repository
 content-addressed storage
-
+```
 The Artifact definition should not depend on any one of them.
-
+```
                 Artifact
                    │
        ┌───────────┼───────────┐
        ▼           ▼           ▼
       Git         OCI       Object
                              Storage
-
+```
 Storage is an implementation concern.
 
 Artifact semantics remain portable.
 
 ⸻
 
-Open Engineering Architecture
+## Open Engineering Architecture
 
 Artifacts connect several important parts of Open Engineering.
-
+```
 Definitions
      │
      ▼
@@ -443,45 +443,45 @@ Artifacts
      │
      ▼
 Evidence / Reporting / Composition
-
+```
 This makes Artifact one of the connective abstractions between engineering intent and durable engineering output.
 
 ⸻
 
-Design Principles
+## Design Principles
 
 The Open Engineering Artifact implementation should remain:
 
-Open
+### Open
 Based on documented, portable formats and interfaces.
 
-Inspectable
+### Inspectable
 Humans and machines should be able to understand what an Artifact contains.
 
-Traceable
+### Traceable
 Artifacts retain their origin and relevant lineage.
 
-Immutable where practical
+### Immutable where practical
 Published Artifact versions should represent stable engineering facts.
 
-Composable
+### Composable
 Artifacts can become inputs to subsequent engineering activity.
 
-Verifiable
+### Verifiable
 Integrity and provenance can be checked independently.
 
-Portable
+### Portable
 Artifacts must not depend on a single vendor, cloud, registry, or runtime.
 
-Automation-friendly
+### Automation-friendly
 Picos, workflows, CI/CD systems, and Kubernetes controllers should be able to manipulate Artifacts programmatically.
 
 ⸻
 
-Repository Direction
+## Repository Direction
 
 Repositories within this organization may provide reference implementations for capabilities such as:
-
+```
 artifact
 ├── model
 ├── schema
@@ -494,15 +494,15 @@ artifact
 ├── integrity
 ├── resolver
 └── Kubernetes integration
-
+```
 Implementations should remain modular so that an Artifact can be useful without requiring the entire Open Engineering platform.
 
 ⸻
 
-Example
+## Example
 
 Imagine an architecture analysis performed by a Pico.
-
+```
 workspace
    │
    ▼
@@ -516,9 +516,9 @@ architecture.yaml
           ├──► findings.json
           ├──► architecture.svg
           └──► report.md
-
+```
 Instead of treating these simply as three files, Open Engineering can represent them as three related Artifacts:
-
+```
 Architecture Analysis
         │
         ├── findings
@@ -529,17 +529,17 @@ Architecture Analysis
         │
         └── report
                └── report.md
-
+```
 Each can carry its own identity, provenance, integrity information, and relationships while remaining part of the same engineering execution.
 
 ⸻
 
-The Bigger Idea
+## The Bigger Idea
 
 Software engineering has traditionally focused heavily on source code.
 
 Modern engineering produces much more.
-
+```
 AI agents generate analyses.
 Picos create observations.
 Workflows generate evidence.
@@ -547,9 +547,9 @@ Systems create diagrams.
 Composers assemble documents.
 Simulations produce datasets.
 Build systems produce packages.
-
+```
 Open Engineering treats these outputs as first-class engineering objects.
-
+```
              Open Engineering
                    │
                    ▼
@@ -567,7 +567,7 @@ Open Engineering treats these outputs as first-class engineering objects.
                    ▼
               Engineering
                Knowledge
-
+```
 Open Engineering Artifact
 
 Engineering output should not disappear into files and folders.
